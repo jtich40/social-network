@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const { format } = require('date-fns');
 
 const thoughtSchema = new Schema({
     thoughtText: {
@@ -10,7 +11,10 @@ const thoughtSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (createdAtVal) => dateFormat(createdAtVal)
+        get: (createdAtVal) => {
+            const formattedDate = format(createdAtVal, 'MM/dd/yyyy hh:mm a');
+            return formattedDate;
+        },
     },
     username: {
         type: String,

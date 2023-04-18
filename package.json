@@ -1,0 +1,25 @@
+{
+  "name": "social-network",
+  "version": "1.0.0",
+  "description": "Social network API where users can share their thoughts, react to friends’ thoughts, and create a friend list.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtich40/social-network.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jtich40/social-network/issues"
+  },
+  "homepage": "https://github.com/jtich40/social-network#readme",
+  "dependencies": {
+    "date-fns": "^2.29.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.4"
+  }
+}
