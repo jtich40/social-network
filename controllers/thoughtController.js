@@ -1,4 +1,4 @@
-const { Thought, Reaction, User } = require('../models');
+const { Thought, User } = require('../models');
 
 module.exports = {
     async getAllThoughts(req, res) {
@@ -11,14 +11,14 @@ module.exports = {
     },
     async getSingleThought(req, res) {
         try {
-            const thoughtData = await Thought.findOne({ _id: req.params.thoughtId})
+            const thoughtData = await Thought.findOne({ _id: req.params.thoughtId })
                 .select('-__v')
                 .populate('reactions')
 
-                if (!thoughtData) {
-                    return res.status(404).json({ message: `No thought with that ID found!` })
-                }
-                res.json(thoughtData)
+            if (!thoughtData) {
+                return res.status(404).json({ message: `No thought with that ID found!` })
+            }
+            res.json(thoughtData)
         } catch (err) {
             res.status(500).json(err)
         }
@@ -27,9 +27,9 @@ module.exports = {
         try {
             const thoughtData = await Thought.create(req.body)
             const userData = await User.findOneAndUpdate(
-                {_id: req.body.userId},
-                {$addToSet: {thoughts: thoughtData._id}},
-                {new: true}
+                { username: req.body.username },
+                { $addToSet: { thoughts: thoughtData._id } },
+                { new: true }
 
             )
 
@@ -61,9 +61,9 @@ module.exports = {
         try {
             const thoughtData = await Thought.findOneAndDelete({ _id: req.params.thoughtId })
             const userData = await User.findOneAndUpdate(
-                {_id: req.body.userId},
-                {$pull: {thoughts: thoughtData._id}},
-                {new: true}
+                { _id: req.body.userId },
+                { $pull: { thoughts: thoughtData._id } },
+                { new: true }
             )
 
             if (!thoughtData) {
@@ -76,11 +76,10 @@ module.exports = {
     },
     async addReaction(req, res) {
         try {
-            const reactionData = await Reaction.create(req.body)
             const thoughtData = await Thought.findOneAndUpdate(
-                {_id: req.params.thoughtId},
-                {$addToSet: {reactions: reactionData._id}},
-                {new: true}
+                { _id: req.params.thoughtId },
+                { $addToSet: { reactions: req.body } },
+                { new: true }
             )
 
             if (!thoughtData) {
@@ -93,17 +92,16 @@ module.exports = {
     },
     async deleteReaction(req, res) {
         try {
-            const reactionData = await Reaction.findOneAndDelete({ _id: req.params.reactionId })
             const thoughtData = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
-                { $pull: {reactions: reactionData._id }},
+                { $pull: { reactions: { reactionId: req.params.reactionId } } },
                 { new: true }
             )
 
             if (!thoughtData) {
                 return res.status(404).json({ message: `No thought with that ID found!` })
             }
-            res.json({ message: `Reaction deleted!` })
+            res.json({ message: `Reaction deleted!`, thoughtData })
         } catch (err) {
             res.status(500).json(err)
         }
