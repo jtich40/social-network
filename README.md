@@ -15,7 +15,7 @@
 Start in the root directory and run `npm i` in the terminal to install required dependencies. Next, enter `npm run start` in the terminal to start the server and sync the Mongoose models to the MongoDB database. Now you can use 
 
 ## Usage
-All dependencies must be installed in the terminal. After this, start the server in order to use GET, POST, PUT, and DELETE requests in Insomnia Core. This [walkthrough video](https://drive.google.com/file/d/1J2wdIgZkra0TQqQbJlNK5qitrrksrrqj/view) will demonstrate the installation process and how to create, retrieve, update, and delete data in Insomnia Core.
+All dependencies must be installed in the terminal. After this, start the server in order to use GET, POST, PUT, and DELETE requests in Insomnia Core. This [walkthrough video](https://drive.google.com/file/d/1wq5E1ODqMz_7OhGlIpq_6UKr6SvDlGJO/view) will demonstrate the installation process and how to create, retrieve, update, and delete data in Insomnia Core.
 
 ## License
   This application is licensed by the MIT license.
